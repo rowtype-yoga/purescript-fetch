@@ -2,7 +2,8 @@
 
 High-level library for the [WHATWG Fetch Living Standard](https://fetch.spec.whatwg.org/).
 
-**Note:** This library requires Node.js version `>17.5`, see [# Usage](#usage).
+`purescript-fetch` works on browser and Node.js. 
+Running on Node.js requires version `>17.5`, see [# Usage](#usage).
 
 ## Installation
 
