@@ -16,6 +16,6 @@ in      conf
               , "strings"
               , "transformers"
               , "debug"
-              , "yoga-json"
+              , "media-types"
               ]
         }

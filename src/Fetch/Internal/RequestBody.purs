@@ -1,7 +1,4 @@
-module Fetch.Internal.RequestBody
-  (
-  )
-  where
+module Fetch.Internal.RequestBody where
 
 import Prelude
 

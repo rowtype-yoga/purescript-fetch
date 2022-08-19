@@ -1,4 +1,13 @@
-module Fetch.Internal.Request where
+module Fetch.Internal.Request
+  ( HighlevelRequestOptions
+  , class ToCoreRequestOptions
+  , class ToCoreRequestOptionsConverter
+  , class ToCoreRequestOptionsHelper
+  , new
+  , convert
+  , convertImpl
+  , convertHelper
+  ) where
 
 import Prelude
 
@@ -48,7 +57,6 @@ type HighlevelRequestOptions headers body =
   , referrerPolicy :: CoreReferrerPolicy.ReferrerPolicy
   , integrity :: CoreIntegrity.Integrity
   )
-
 
 new
   :: forall input thru

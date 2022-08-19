@@ -13,6 +13,7 @@
   , "typelevel-prelude"
   , "unsafe-coerce"
   , "web-file"
+  , "web-promise"
   , "web-streams"
   ]
 , packages = ./packages.dhall

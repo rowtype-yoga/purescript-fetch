@@ -1,11 +1,20 @@
-module Fetch.Internal.Response where
+module Fetch.Internal.Response
+  ( Response
+  , ResponseR
+  , arrayBuffer
+  , blob
+  , body
+  , convert
+  , json
+  , promiseToPromise
+  , text
+  ) where
 
 import Prelude
 
 import Control.Promise as Control
 import Control.Promise as Promise
 import Data.ArrayBuffer.Types (ArrayBuffer, Uint8Array)
-import Data.Newtype (class Newtype)
 import Effect (Effect)
 import Effect.Aff (Aff)
 import Fetch.Core.Headers (Headers)
@@ -33,17 +42,6 @@ type ResponseR =
 type Response =
   { | ResponseR
   }
-
-data BlobDriver :: forall k. k -> Type
-data BlobDriver blob = BlobDriver
-
-data StreamDriver :: forall k. k -> Type
-data StreamDriver stream = StreamDriver
-
-newtype JsonDriver :: Type -> Type
-newtype JsonDriver json = JsonDriver (Foreign -> Aff json)
-
-derive instance Newtype (JsonDriver json) _
 
 text :: CoreResponse.Response -> Aff String
 text response = CoreResponse.text response <#> promiseToPromise # Promise.toAffE
