@@ -1,44 +1,37 @@
 module Fetch.Fetch
-  ( Request
-  , fetch
-  , fetchJson
-  , fetchRaw
+  ( fetch
   ) where
 
 import Prelude
 
 import Control.Promise as Promise
 import Effect.Aff (Aff)
+import Effect.Class (liftEffect)
 import Fetch.Core as Core
 import Fetch.Core.Request as CoreRequest
-import Fetch.Core.Response as CoreResponse
-import Fetch.Internal.Response (BaseResponseR, JsonDriver, JsonResponse, RawResponse(..), Response)
+import Fetch.Internal.Request (class ToCoreRequestOptions, HighlevelRequestOptions, new)
+import Fetch.Internal.Request as Request
+import Fetch.Internal.RequestBody (class ToRequestBody)
+import Fetch.Internal.Response (Response)
 import Fetch.Internal.Response as Response
-import Record (merge)
+import Prim.Row (class Union)
+import Type.Row.Homogeneous (class Homogeneous)
 import Unsafe.Coerce (unsafeCoerce)
 
-type Request = CoreRequest.Request
-
-convert :: CoreResponse.Response -> { | BaseResponseR () }
-convert = unsafeCoerce
-
-fetch :: Request -> Aff Response
-fetch request = do
+-- | Fetch
+-- | 
+fetch
+  :: forall input output thruIn thruOut headers body
+   . Homogeneous headers String
+  => ToRequestBody body
+  => Union input thruIn (HighlevelRequestOptions headers body)
+  => Union output thruOut CoreRequest.UnsafeRequestOptions
+  => ToCoreRequestOptions input output
+  => String
+  -> { | input }
+  -> Aff Response
+fetch url r = do
+  request <- liftEffect $ new url $ Request.convert r
   cResponse <- Promise.toAffE $ unsafeCoerce $ Core.fetch request
-  text <- Promise.toAffE $ unsafeCoerce $ CoreResponse.text cResponse
-  let response = convert cResponse
-  pure $ merge response { text }
+  pure $ Response.convert cResponse
 
-fetchRaw :: Request -> Aff RawResponse
-fetchRaw = Core.fetch >>> unsafeCoerce >>> Promise.toAffE >>> map RawResponse
-
-fetchJson
-  :: forall json
-   . JsonDriver json
-  -> Request
-  -> Aff (JsonResponse json)
-fetchJson driver request = do
-  rawResponse@(RawResponse cResponse) <- fetchRaw request
-  json <- Response.json driver rawResponse
-  let response = convert cResponse
-  pure $ merge response { json }
