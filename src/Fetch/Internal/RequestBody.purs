@@ -1,7 +1,5 @@
 module Fetch.Internal.RequestBody where
 
-import Prelude
-
 import Data.ArrayBuffer.Types (ArrayBuffer, ArrayView, Uint8Array)
 import Fetch.Core.RequestBody as CoreRequestBody
 import Web.Streams.ReadableStream (ReadableStream)
