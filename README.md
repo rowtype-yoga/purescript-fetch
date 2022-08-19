@@ -52,5 +52,5 @@ do
         , body: writeJSON { hello: "world" }
         , headers: { "Content-Type": "application/json" }
         }
-    { "data": d, url, origin } <- fromJson json
+    { "data": d, url, origin } <- fromJSON json
 ```
