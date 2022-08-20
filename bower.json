@@ -1,0 +1,33 @@
+{
+    "name": "purescript-fetch",
+    "license": [
+        "MIT"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rowtype-yoga/purescript-fetch.git"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "output"
+    ],
+    "dependencies": {
+        "purescript-aff": "^v7.0.0",
+        "purescript-aff-promise": "^v4.0.0",
+        "purescript-arraybuffer-types": "^v3.0.2",
+        "purescript-effect": "^v4.0.0",
+        "purescript-fetch-core": "https://github.com/rowtype-yoga/purescript-fetch-core.git#v4.0.4",
+        "purescript-foreign": "^v7.0.0",
+        "purescript-http-methods": "^v6.0.0",
+        "purescript-newtype": "^v5.0.0",
+        "purescript-prelude": "^v6.0.0",
+        "purescript-record": "^v4.0.0",
+        "purescript-typelevel-prelude": "^v7.0.0",
+        "purescript-unsafe-coerce": "^v6.0.0",
+        "purescript-web-file": "^v4.0.0",
+        "purescript-web-promise": "https://github.com/purescript-web/purescript-web-promise.git#v3.0.0",
+        "purescript-web-streams": "https://github.com/purescript-web/purescript-web-streams.git#v3.0.0"
+    }
+}
