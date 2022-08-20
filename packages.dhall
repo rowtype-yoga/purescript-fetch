@@ -28,6 +28,6 @@ in  upstream
     , "web-promise"
     , "web-streams"
     ],
-    version = "main",
+    version = "v4.0.4",
     repo = "https://github.com/rowtype-yoga/purescript-fetch-core.git"
   } 
