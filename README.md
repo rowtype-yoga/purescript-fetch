@@ -31,10 +31,8 @@ Perform a `POST` request:
 do
     { status, text } <- fetch "https://httpbin.org/post"
         { method: POST
-        , mode: Cors
         , body: """{"hello":"world"}"""
         , headers: { "Content-Type": "application/json" }
-        , referrer: (ReferrerUrl "https://httpbin.org")
         }
     responseText <- text
 ```
@@ -44,18 +42,40 @@ do
 `fetch` works well with `yoga-json` and `argonaut`, use our little helper libraries.
 
 ### yoga-json
-You can use `fetch-yoga-json` helper library to simplify json handling
+
+```bash
+spago install fetch-yoga-json
+```
 
 ```purescript
-do
-    { json } <- fetch "https://httpbin.org/post"
-        { method: POST
-        , body: writeJSON { hello: "world" }
-        , headers: { "Content-Type": "application/json" }
-        }
-    { "data": d, url, origin } <- fromJSON json
+type HttpBinResponse = { json :: { hello :: String } }
+
+main :: Effect Unit
+main = launchAff_ do
+  { json } <- fetch "https://httpbin.org/post"
+    { method: POST
+    , body: """{"hello":"world"}"""
+    , headers: { "Content-Type": "application/json" }
+    }
+  { json: { hello: world } } :: HttpBinResponse <- fromJSON json
+  log world
 ```
 
 ### argonaut
 
-Coming soon!
+```bash
+spago install fetch-argonaut
+```
+
+```purescript
+type HttpBinResponse = { json :: { hello :: String } }
+
+do
+  { json } <- fetch "https://httpbin.org/post"
+    { method: POST
+    , body: """{"hello":"world"}"""
+    , headers: { "Content-Type": "application/json" }
+    }
+  { json: { hello: world } } :: HttpBinResponse <- fromJson json
+  log world
+```
