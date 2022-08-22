@@ -31,7 +31,6 @@ import Fetch.Internal.RequestBody (class ToRequestBody, toRequestBody)
 import Fetch.Internal.Response (Response, ResponseR, arrayBuffer, blob, body, json, promiseToPromise, text)
 import Fetch.Internal.Response as Response
 import Prim.Row (class Union)
-import Type.Row.Homogeneous (class Homogeneous)
 
 -- | Implementation of `fetch`, see https://developer.mozilla.org/en-US/docs/Web/API/fetch
 -- | For usage with `String` bodies. For other body types, see `fetchBody`
