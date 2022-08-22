@@ -56,8 +56,7 @@ import Prim.Row (class Union)
 -- | ```
 fetch
   :: forall input output thruIn thruOut headers
-   . Homogeneous headers String
-  => Union input thruIn (HighlevelRequestOptions headers String)
+   . Union input thruIn (HighlevelRequestOptions headers String)
   => Union output thruOut CoreRequest.UnsafeRequestOptions
   => ToCoreRequestOptions input output
   => String
