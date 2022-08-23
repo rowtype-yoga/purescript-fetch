@@ -54,7 +54,7 @@ main :: Effect Unit
 main = launchAff_ do
   { json } <- fetch "https://httpbin.org/post"
     { method: POST
-    , body: """{"hello":"world"}"""
+    , body: writeJSON { hello: "world" }
     , headers: { "Content-Type": "application/json" }
     }
   { json: { hello: world } } :: HttpBinResponse <- fromJSON json
@@ -73,7 +73,7 @@ type HttpBinResponse = { json :: { hello :: String } }
 do
   { json } <- fetch "https://httpbin.org/post"
     { method: POST
-    , body: """{"hello":"world"}"""
+    , body: toJsonString { hello: "world" }
     , headers: { "Content-Type": "application/json" }
     }
   { json: { hello: world } } :: HttpBinResponse <- fromJson json
