@@ -42,7 +42,6 @@ import Prim.Row (class Union)
 -- |   { status, text } <- fetch requestUrl { headers: { "Accept": "application/json" }}
 -- |   responseBody <- text
 -- | ```
--- | 
 -- | A more complex example doing a Post request:
 -- | ```purescript
 -- | do
