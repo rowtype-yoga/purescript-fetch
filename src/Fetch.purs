@@ -10,6 +10,7 @@ module Fetch
   , module Fetch.Internal.Request
   , module Fetch.Internal.RequestBody
   , module Fetch.Internal.Response
+  , module Fetch.Internal.Headers
   ) where
 
 import Prelude
@@ -27,6 +28,7 @@ import Fetch.Core.RequestCredentials (RequestCredentials(Omit, Include))
 import Fetch.Core.RequestMode (RequestMode(Cors, NoCors, Navigate))
 import Fetch.Internal.Request (class ToCoreRequestOptions, class ToCoreRequestOptionsConverter, class ToCoreRequestOptionsHelper, HighlevelRequestOptions, convertHelper, convertImpl, new)
 import Fetch.Internal.Request as Request
+import Fetch.Internal.Headers (lookup, toHeaders, contains)
 import Fetch.Internal.RequestBody (class ToRequestBody, toRequestBody)
 import Fetch.Internal.Response (Response, ResponseR, arrayBuffer, blob, body, json, promiseToPromise, text)
 import Fetch.Internal.Response as Response

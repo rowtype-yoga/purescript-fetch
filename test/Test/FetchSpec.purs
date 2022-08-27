@@ -3,7 +3,9 @@ module Test.FetchSpec where
 import Prelude
 
 import Data.ArrayBuffer.Types (Uint8Array)
+import Data.Maybe (Maybe(..))
 import Fetch (Method(..), Referrer(..), RequestMode(..), fetch, fetchBody)
+import Fetch as Fetch
 import Foreign (unsafeFromForeign)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
@@ -48,4 +50,16 @@ spec =
           }
         { json: j } <- json <#> unsafeFromForeign
         j `shouldEqual` { hello: "world" }
+        status `shouldEqual` 200
+
+      it "should retrieve correct headers" do
+
+        { status, headers } <- fetch "https://httpbin.org/post"
+          { method: POST
+          , body: """{"hello":"world"}"""
+          , headers: { "Content-Type": "application/json" }
+          }
+        Fetch.lookup "Access-Control-Allow-Origin" headers `shouldEqual` Just "*"
+        Fetch.lookup "Content-Type" headers `shouldEqual` Just "application/json"
+        Fetch.contains "Content-Length" headers `shouldEqual` true
         status `shouldEqual` 200
