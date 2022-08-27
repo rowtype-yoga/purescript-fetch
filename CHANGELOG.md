@@ -5,6 +5,7 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
+- Switch response headers to `Map CaseInsensitiveString String`
 
 New features:
 Bugfixes:
