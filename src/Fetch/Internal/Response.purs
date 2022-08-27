@@ -15,12 +15,10 @@ import Prelude
 import Control.Promise as Control
 import Control.Promise as Promise
 import Data.ArrayBuffer.Types (ArrayBuffer, Uint8Array)
-import Data.Bifunctor (lmap)
 import Data.Map as Map
-import Data.String.CaseInsensitive (CaseInsensitiveString(..))
+import Data.String.CaseInsensitive (CaseInsensitiveString)
 import Effect (Effect)
 import Effect.Aff (Aff)
-import Fetch.Core.Headers as CoreHeaders
 import Fetch.Core.Response as CoreResponse
 import Fetch.Internal.Headers (toHeaders)
 import Foreign (Foreign)
