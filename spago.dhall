@@ -13,6 +13,7 @@
   , "ordered-collections"
   , "prelude"
   , "record"
+  , "strings"
   , "typelevel-prelude"
   , "unsafe-coerce"
   , "web-file"
