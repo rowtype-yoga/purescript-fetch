@@ -5,12 +5,14 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
-- Switch response headers to `Map CaseInsensitiveString String`
 
 New features:
 Bugfixes:
 
 Other improvements:
+
+## [v2.0.0](https://github.com/rowtype-yoga/purescript-fetch/releases/tag/v1.0.0) - 2022-09-05
+- Switch response headers to `Map CaseInsensitiveString String` (#2)
 
 ## [v1.1.0](https://github.com/rowtype-yoga/purescript-fetch/releases/tag/v1.0.0) - 2022-08-22
 
