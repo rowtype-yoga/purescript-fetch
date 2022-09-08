@@ -19,7 +19,7 @@ Node.js `>=17.5` and `<18.0` requires the `--experimental-fetch` node options:
 ```bash
 NODE_OPTIONS=--experimental-fetch spago run
 ```
-Node.js `>18.0` you don't need to set the `--experimental-fetch` node option.
+Node.js `>=18.0` you don't need to set the `--experimental-fetch` node option.
 
 Perform a simple `GET` request:
 ```purescript
