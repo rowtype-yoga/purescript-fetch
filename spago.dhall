@@ -1,13 +1,13 @@
 { name = "fetch"
 , dependencies =
   [ "aff"
-  , "aff-promise"
   , "arraybuffer-types"
   , "bifunctors"
   , "effect"
   , "fetch-core"
   , "foreign"
   , "http-methods"
+  , "js-promise-aff"
   , "maybe"
   , "newtype"
   , "ordered-collections"
@@ -15,9 +15,7 @@
   , "record"
   , "strings"
   , "typelevel-prelude"
-  , "unsafe-coerce"
   , "web-file"
-  , "web-promise"
   , "web-streams"
   ]
 , packages = ./packages.dhall
