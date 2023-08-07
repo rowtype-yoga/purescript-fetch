@@ -5,14 +5,20 @@ Notable changes to this project are documented in this file. The format is based
 ## [Unreleased]
 
 Breaking changes:
-- Switch response headers to `Map CaseInsensitiveString String`
 
 New features:
+
 Bugfixes:
 
 Other improvements:
 
-## [v1.1.0](https://github.com/rowtype-yoga/purescript-fetch/releases/tag/v1.0.0) - 2022-08-22
+## [v2.0.0](https://github.com/rowtype-yoga/purescript-fetch/releases/tag/v2.0.0) - 2023-08-07
+
+Breaking changes:
+- Switch response headers to `Map CaseInsensitiveString String`
+- Switch web-promise dependency to js-promise
+
+## [v1.1.0](https://github.com/rowtype-yoga/purescript-fetch/releases/tag/v1.1.0) - 2022-08-22
 
 Breaking changes:
 
