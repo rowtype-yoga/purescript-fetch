@@ -16,28 +16,25 @@ import Data.Newtype (un)
 import Data.Symbol (class IsSymbol)
 import Effect (Effect)
 import Effect.Uncurried (runEffectFn2)
+import Fetch.Core.Duplex (Duplex)
+import Fetch.Core.Duplex as Core.Duplex
 import Fetch.Core.Headers (Headers)
-import Fetch.Core.Headers as CoreHeaders
+import Fetch.Core.Headers as Core.Headers
 import Fetch.Core.Integrity (Integrity(..))
-import Fetch.Core.Integrity as CoreIntegrity
+import Fetch.Core.Integrity as Core.Integrity
 import Fetch.Core.Referrer (Referrer)
-import Fetch.Core.Referrer as CoreReferrer
-import Fetch.Core.Referrer as Referrer
+import Fetch.Core.Referrer as Core.Referrer
 import Fetch.Core.ReferrerPolicy (ReferrerPolicy)
-import Fetch.Core.ReferrerPolicy as CoreReferrerPolicy
-import Fetch.Core.ReferrerPolicy as ReferrerPolicy
+import Fetch.Core.ReferrerPolicy as Core.ReferrerPolicy
 import Fetch.Core.Request (_unsafeNew)
-import Fetch.Core.Request as CoreRequest
+import Fetch.Core.Request as Core.Request
 import Fetch.Core.RequestBody (RequestBody)
 import Fetch.Core.RequestCache (RequestCache)
-import Fetch.Core.RequestCache as CoreRequestCache
-import Fetch.Core.RequestCache as RequestCache
+import Fetch.Core.RequestCache as Core.RequestCache
 import Fetch.Core.RequestCredentials (RequestCredentials)
-import Fetch.Core.RequestCredentials as CoreRequestCredentials
-import Fetch.Core.RequestCredentials as RequestCredentials
+import Fetch.Core.RequestCredentials as Core.RequestCredentials
 import Fetch.Core.RequestMode (RequestMode)
-import Fetch.Core.RequestMode as CoreRequestMode
-import Fetch.Core.RequestMode as RequestMode
+import Fetch.Core.RequestMode as Core.RequestMode
 import Fetch.Internal.RequestBody (class ToRequestBody, toRequestBody)
 import Prim.Row (class Lacks, class Union)
 import Prim.Row as R
@@ -50,20 +47,21 @@ type HighlevelRequestOptions headers body =
   ( method :: Method
   , headers :: { | headers }
   , body :: body
-  , credentials :: CoreRequestCredentials.RequestCredentials
-  , cache :: CoreRequestCache.RequestCache
-  , mode :: CoreRequestMode.RequestMode
-  , referrer :: CoreReferrer.Referrer
-  , referrerPolicy :: CoreReferrerPolicy.ReferrerPolicy
-  , integrity :: CoreIntegrity.Integrity
+  , credentials :: Core.RequestCredentials.RequestCredentials
+  , cache :: Core.RequestCache.RequestCache
+  , mode :: Core.RequestMode.RequestMode
+  , referrer :: Core.Referrer.Referrer
+  , referrerPolicy :: Core.ReferrerPolicy.ReferrerPolicy
+  , integrity :: Core.Integrity.Integrity
+  , duplex :: Core.Duplex.Duplex
   )
 
 new
   :: forall input thru
-   . Union input thru CoreRequest.UnsafeRequestOptions
+   . Union input thru Core.Request.UnsafeRequestOptions
   => String
   -> { | input }
-  -> Effect CoreRequest.Request
+  -> Effect Core.Request.Request
 new url options = runEffectFn2 _unsafeNew url options
 
 class ToCoreRequestOptions input output | input -> output where
@@ -105,26 +103,28 @@ instance ToCoreRequestOptionsConverter "method" Method String where
   convertImpl _ = show
 
 instance (Homogeneous r String) => ToCoreRequestOptionsConverter "headers" { | r } Headers where
-  convertImpl _ = CoreHeaders.fromRecord
+  convertImpl _ = Core.Headers.fromRecord
 
 instance (ToRequestBody body) => ToCoreRequestOptionsConverter "body" body RequestBody where
   convertImpl _ = toRequestBody
 
 instance ToCoreRequestOptionsConverter "credentials" RequestCredentials String where
-  convertImpl _ = RequestCredentials.toString
+  convertImpl _ = Core.RequestCredentials.toString
 
 instance ToCoreRequestOptionsConverter "cache" RequestCache String where
-  convertImpl _ = RequestCache.toString
+  convertImpl _ = Core.RequestCache.toString
 
 instance ToCoreRequestOptionsConverter "mode" RequestMode String where
-  convertImpl _ = RequestMode.toString
+  convertImpl _ = Core.RequestMode.toString
 
 instance ToCoreRequestOptionsConverter "referrer" Referrer String where
-  convertImpl _ = Referrer.toString
+  convertImpl _ = Core.Referrer.toString
 
 instance ToCoreRequestOptionsConverter "referrerPolicy" ReferrerPolicy String where
-  convertImpl _ = ReferrerPolicy.toString
+  convertImpl _ = Core.ReferrerPolicy.toString
 
 instance ToCoreRequestOptionsConverter "integrity" Integrity String where
   convertImpl _ = un Integrity
 
+instance ToCoreRequestOptionsConverter "duplex" Duplex String where
+  convertImpl _ = Core.Duplex.toString

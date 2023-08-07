@@ -15,7 +15,6 @@ module Fetch
 
 import Prelude
 
-import Control.Promise as Promise
 import Data.HTTP.Method (Method(..))
 import Effect.Aff (Aff)
 import Effect.Class (liftEffect)
@@ -26,20 +25,21 @@ import Fetch.Core.Request as CoreRequest
 import Fetch.Core.RequestCache (RequestCache(..))
 import Fetch.Core.RequestCredentials (RequestCredentials(Omit, Include))
 import Fetch.Core.RequestMode (RequestMode(Cors, NoCors, Navigate))
+import Fetch.Internal.Headers (lookup, toHeaders, contains)
 import Fetch.Internal.Request (class ToCoreRequestOptions, class ToCoreRequestOptionsConverter, class ToCoreRequestOptionsHelper, HighlevelRequestOptions, convertHelper, convertImpl, new)
 import Fetch.Internal.Request as Request
-import Fetch.Internal.Headers (lookup, toHeaders, contains)
 import Fetch.Internal.RequestBody (class ToRequestBody, toRequestBody)
-import Fetch.Internal.Response (Response, ResponseR, arrayBuffer, blob, body, json, promiseToPromise, text)
+import Fetch.Internal.Response (Response, ResponseR, arrayBuffer, blob, body, json, text)
 import Fetch.Internal.Response as Response
 import Prim.Row (class Union)
+import Promise.Aff as Promise.Aff
 
 -- | Implementation of `fetch`, see https://developer.mozilla.org/en-US/docs/Web/API/fetch
 -- | For usage with `String` bodies. For other body types, see `fetchBody`
--- | 
+-- |
 -- | Usage:
 -- | ```purescript
--- | do 
+-- | do
 -- |   let requestUrl = "https://httpbin.org/get"
 -- |   { status, text } <- fetch requestUrl { headers: { "Accept": "application/json" }}
 -- |   responseBody <- text
@@ -66,7 +66,7 @@ fetch
   -> Aff Response
 fetch url r = do
   request <- liftEffect $ new url $ Request.convert r
-  cResponse <- Promise.toAffE $ Response.promiseToPromise <$> Core.fetch request
+  cResponse <- Promise.Aff.toAffE $ Core.fetch request
   pure $ Response.convert cResponse
 
 -- | Like `fetch`, but can accept arbitrary `RequestBody`s.
@@ -81,5 +81,5 @@ fetchBody
   -> Aff Response
 fetchBody url r = do
   request <- liftEffect $ new url $ Request.convert r
-  cResponse <- Promise.toAffE $ Response.promiseToPromise <$> Core.fetch request
+  cResponse <- Promise.Aff.toAffE $ Core.fetch request
   pure $ Response.convert cResponse

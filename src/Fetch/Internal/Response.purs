@@ -6,14 +6,11 @@ module Fetch.Internal.Response
   , body
   , convert
   , json
-  , promiseToPromise
   , text
   ) where
 
 import Prelude
 
-import Control.Promise as Control
-import Control.Promise as Promise
 import Data.ArrayBuffer.Types (ArrayBuffer, Uint8Array)
 import Data.Map as Map
 import Data.String.CaseInsensitive (CaseInsensitiveString)
@@ -22,9 +19,8 @@ import Effect.Aff (Aff)
 import Fetch.Core.Response as CoreResponse
 import Fetch.Internal.Headers (toHeaders)
 import Foreign (Foreign)
-import Unsafe.Coerce (unsafeCoerce)
+import Promise.Aff as Promise.Aff
 import Web.File.Blob (Blob)
-import Web.Promise as Web
 import Web.Streams.ReadableStream (ReadableStream)
 
 type ResponseR =
@@ -46,22 +42,19 @@ type Response =
   }
 
 text :: CoreResponse.Response -> Aff String
-text response = CoreResponse.text response <#> promiseToPromise # Promise.toAffE
+text response = CoreResponse.text response # Promise.Aff.toAffE
 
 body :: CoreResponse.Response -> Effect (ReadableStream Uint8Array)
 body = CoreResponse.body
 
 json :: CoreResponse.Response -> Aff Foreign
-json response = CoreResponse.json response <#> promiseToPromise # Promise.toAffE
+json response = CoreResponse.json response # Promise.Aff.toAffE
 
 arrayBuffer :: CoreResponse.Response -> Aff ArrayBuffer
-arrayBuffer response = CoreResponse.arrayBuffer response <#> promiseToPromise # Promise.toAffE
+arrayBuffer response = CoreResponse.arrayBuffer response # Promise.Aff.toAffE
 
 blob :: CoreResponse.Response -> Aff Blob
-blob response = CoreResponse.blob response <#> promiseToPromise # Promise.toAffE
-
-promiseToPromise :: Web.Promise ~> Control.Promise
-promiseToPromise = unsafeCoerce
+blob response = CoreResponse.blob response # Promise.Aff.toAffE
 
 convert :: CoreResponse.Response -> Response
 convert response =
