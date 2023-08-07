@@ -16,6 +16,9 @@ import Data.Newtype (un)
 import Data.Symbol (class IsSymbol)
 import Effect (Effect)
 import Effect.Uncurried (runEffectFn2)
+import Fetch.Core.Duplex (Duplex)
+import Fetch.Core.Duplex as CoreDuplex
+import Fetch.Core.Duplex as Duplex
 import Fetch.Core.Headers (Headers)
 import Fetch.Core.Headers as CoreHeaders
 import Fetch.Core.Integrity (Integrity(..))
@@ -56,6 +59,7 @@ type HighlevelRequestOptions headers body =
   , referrer :: CoreReferrer.Referrer
   , referrerPolicy :: CoreReferrerPolicy.ReferrerPolicy
   , integrity :: CoreIntegrity.Integrity
+  , duplex :: CoreDuplex.Duplex
   )
 
 new
@@ -128,3 +132,5 @@ instance ToCoreRequestOptionsConverter "referrerPolicy" ReferrerPolicy String wh
 instance ToCoreRequestOptionsConverter "integrity" Integrity String where
   convertImpl _ = un Integrity
 
+instance ToCoreRequestOptionsConverter "duplex" Duplex String where
+  convertImpl _ = Duplex.toString

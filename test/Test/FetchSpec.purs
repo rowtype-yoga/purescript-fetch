@@ -6,6 +6,7 @@ import Data.ArrayBuffer.Types (Uint8Array)
 import Data.Maybe (Maybe(..))
 import Fetch (Method(..), Referrer(..), RequestMode(..), fetch, fetchBody)
 import Fetch as Fetch
+import Fetch.Core.Duplex (Duplex(..))
 import Foreign (unsafeFromForeign)
 import Test.Spec (Spec, describe, it)
 import Test.Spec.Assertions (shouldEqual)
@@ -47,6 +48,7 @@ spec =
           , body: helloWorldStream
           , headers: { "Content-Type": "application/json" }
           , referrer: (ReferrerUrl "https://httpbin.org")
+          , duplex: Half
           }
         { json: j } <- json <#> unsafeFromForeign
         j `shouldEqual` { hello: "world" }

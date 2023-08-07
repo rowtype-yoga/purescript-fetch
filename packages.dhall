@@ -3,3 +3,5 @@ let upstream =
         sha256:0c2cf73e053ddace5094ba6c0ef3077f98b7ce76b822a51af66b6bba30cddaf5
 
 in  upstream
+  with
+    fetch-core.version = "v5.1.0"

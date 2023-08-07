@@ -9,6 +9,5 @@ in      conf
               , "spec"
               , "spec-discovery"
               , "strings"
-              , "debug"
               ]
         }

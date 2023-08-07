@@ -10,7 +10,7 @@
     "purescript-aff": "^v7.0.0",
     "purescript-arraybuffer-types": "^v3.0.2",
     "purescript-effect": "^v4.0.0",
-    "purescript-fetch-core": "https://github.com/rowtype-yoga/purescript-fetch-core.git#^5.0.0",
+    "purescript-fetch-core": "https://github.com/rowtype-yoga/purescript-fetch-core.git#^5.1.0",
     "purescript-foreign": "^v7.0.0",
     "purescript-http-methods": "^v6.0.0",
     "purescript-js-promise-aff": "https://github.com/purescript-contrib/purescript-js-promise-aff.git#^v1.0.0",
