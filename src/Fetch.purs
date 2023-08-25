@@ -71,7 +71,7 @@ fetch url r = do
 
 -- | Like `fetch`, but can accept arbitrary `RequestBody`s.
 fetchBody
-  :: forall input output thruIn thruOut headers body
+  :: forall input output @thruIn thruOut headers body
    . ToRequestBody body
   => Union input thruIn (HighlevelRequestOptions headers body)
   => Union output thruOut CoreRequest.UnsafeRequestOptions
