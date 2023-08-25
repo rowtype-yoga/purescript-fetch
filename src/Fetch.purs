@@ -57,7 +57,7 @@ import Promise.Aff as Promise.Aff
 -- |   foreignJsonValue <- json
 -- | ```
 fetch
-  :: forall input output thruIn thruOut headers
+  :: forall input output @thruIn thruOut headers
    . Union input thruIn (HighlevelRequestOptions headers String)
   => Union output thruOut CoreRequest.UnsafeRequestOptions
   => ToCoreRequestOptions input output
