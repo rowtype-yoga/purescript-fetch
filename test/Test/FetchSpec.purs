@@ -4,7 +4,7 @@ import Prelude
 
 import Data.ArrayBuffer.Types (Uint8Array)
 import Data.Maybe (Maybe(..))
-import Fetch (Method(..), Referrer(..), RequestMode(..), fetch, fetchBody)
+import Fetch (Method(..), Referrer(..), RequestMode(..), fetch)
 import Fetch as Fetch
 import Fetch.Core.Duplex (Duplex(..))
 import Foreign (unsafeFromForeign)
@@ -42,7 +42,7 @@ spec =
 
       it "should send a Post request with stream body" do
 
-        { status, json } <- fetchBody "https://httpbin.org/post"
+        { status, json } <- fetch "https://httpbin.org/post"
           { method: POST
           , mode: Cors
           , body: helloWorldStream

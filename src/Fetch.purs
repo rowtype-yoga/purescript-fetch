@@ -1,6 +1,5 @@
 module Fetch
   ( fetch
-  , fetchBody
   , module Data.HTTP.Method
   , module Fetch.Core.RequestCache
   , module Fetch.Core.RequestCredentials
@@ -35,7 +34,6 @@ import Prim.Row (class Union)
 import Promise.Aff as Promise.Aff
 
 -- | Implementation of `fetch`, see https://developer.mozilla.org/en-US/docs/Web/API/fetch
--- | For usage with `String` bodies. For other body types, see `fetchBody`
 -- |
 -- | Usage:
 -- | ```purescript
@@ -57,29 +55,14 @@ import Promise.Aff as Promise.Aff
 -- |   foreignJsonValue <- json
 -- | ```
 fetch
-  :: forall input output @thruIn thruOut headers
-   . Union input thruIn (HighlevelRequestOptions headers String)
+  :: forall input output @thruIn thruOut headers body
+   . Union input thruIn (HighlevelRequestOptions headers body)
   => Union output thruOut CoreRequest.UnsafeRequestOptions
   => ToCoreRequestOptions input output
   => String
   -> { | input }
   -> Aff Response
 fetch url r = do
-  request <- liftEffect $ new url $ Request.convert r
-  cResponse <- Promise.Aff.toAffE $ Core.fetch request
-  pure $ Response.convert cResponse
-
--- | Like `fetch`, but can accept arbitrary `RequestBody`s.
-fetchBody
-  :: forall input output @thruIn thruOut headers body
-   . ToRequestBody body
-  => Union input thruIn (HighlevelRequestOptions headers body)
-  => Union output thruOut CoreRequest.UnsafeRequestOptions
-  => ToCoreRequestOptions input output
-  => String
-  -> { | input }
-  -> Aff Response
-fetchBody url r = do
   request <- liftEffect $ new url $ Request.convert r
   cResponse <- Promise.Aff.toAffE $ Core.fetch request
   pure $ Response.convert cResponse
