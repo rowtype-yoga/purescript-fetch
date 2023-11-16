@@ -10,7 +10,7 @@ import Data.Bifunctor (lmap)
 import Data.Map as Map
 import Data.Maybe (Maybe)
 import Data.String.CaseInsensitive (CaseInsensitiveString(..))
-import Fetch.Core.Headers as CoreHeaders
+import JS.Fetch.Headers as CoreHeaders
 
 toHeaders :: CoreHeaders.Headers -> Map.Map CaseInsensitiveString String
 toHeaders = CoreHeaders.toArray >>> map (lmap CaseInsensitiveString) >>> Map.fromFoldable

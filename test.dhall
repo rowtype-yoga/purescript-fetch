@@ -6,6 +6,7 @@ in      conf
               conf.dependencies
             # [ "aff"
               , "effect"
+              , "either"
               , "spec"
               , "spec-discovery"
               , "strings"

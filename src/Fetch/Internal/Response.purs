@@ -16,7 +16,7 @@ import Data.Map as Map
 import Data.String.CaseInsensitive (CaseInsensitiveString)
 import Effect (Effect)
 import Effect.Aff (Aff)
-import Fetch.Core.Response as CoreResponse
+import JS.Fetch.Response as CoreResponse
 import Fetch.Internal.Headers (toHeaders)
 import Foreign (Foreign)
 import Promise.Aff as Promise.Aff

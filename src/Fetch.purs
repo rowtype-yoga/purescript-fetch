@@ -1,11 +1,11 @@
 module Fetch
   ( fetch
   , module Data.HTTP.Method
-  , module Fetch.Core.RequestCache
-  , module Fetch.Core.RequestCredentials
-  , module Fetch.Core.RequestMode
-  , module Fetch.Core.Referrer
-  , module Fetch.Core.Integrity
+  , module JS.Fetch.RequestCache
+  , module JS.Fetch.RequestCredentials
+  , module JS.Fetch.RequestMode
+  , module JS.Fetch.Referrer
+  , module JS.Fetch.Integrity
   , module Fetch.Internal.Request
   , module Fetch.Internal.RequestBody
   , module Fetch.Internal.Response
@@ -17,13 +17,13 @@ import Prelude
 import Data.HTTP.Method (Method(..))
 import Effect.Aff (Aff)
 import Effect.Class (liftEffect)
-import Fetch.Core as Core
-import Fetch.Core.Integrity (Integrity(..))
-import Fetch.Core.Referrer (Referrer(..))
-import Fetch.Core.Request as CoreRequest
-import Fetch.Core.RequestCache (RequestCache(..))
-import Fetch.Core.RequestCredentials (RequestCredentials(Omit, Include))
-import Fetch.Core.RequestMode (RequestMode(Cors, NoCors, Navigate))
+import JS.Fetch as Core
+import JS.Fetch.Integrity (Integrity(..))
+import JS.Fetch.Referrer (Referrer(..))
+import JS.Fetch.Request as CoreRequest
+import JS.Fetch.RequestCache (RequestCache(..))
+import JS.Fetch.RequestCredentials (RequestCredentials(Omit, Include))
+import JS.Fetch.RequestMode (RequestMode(Cors, NoCors, Navigate))
 import Fetch.Internal.Headers (lookup, toHeaders, contains)
 import Fetch.Internal.Request (class ToCoreRequestOptions, class ToCoreRequestOptionsConverter, class ToCoreRequestOptionsHelper, HighlevelRequestOptions, convertHelper, convertImpl, new)
 import Fetch.Internal.Request as Request

@@ -16,25 +16,25 @@ import Data.Newtype (un)
 import Data.Symbol (class IsSymbol)
 import Effect (Effect)
 import Effect.Uncurried (runEffectFn2)
-import Fetch.Core.Duplex (Duplex)
-import Fetch.Core.Duplex as Core.Duplex
-import Fetch.Core.Headers (Headers)
-import Fetch.Core.Headers as Core.Headers
-import Fetch.Core.Integrity (Integrity(..))
-import Fetch.Core.Integrity as Core.Integrity
-import Fetch.Core.Referrer (Referrer)
-import Fetch.Core.Referrer as Core.Referrer
-import Fetch.Core.ReferrerPolicy (ReferrerPolicy)
-import Fetch.Core.ReferrerPolicy as Core.ReferrerPolicy
-import Fetch.Core.Request (_unsafeNew)
-import Fetch.Core.Request as Core.Request
-import Fetch.Core.RequestBody (RequestBody)
-import Fetch.Core.RequestCache (RequestCache)
-import Fetch.Core.RequestCache as Core.RequestCache
-import Fetch.Core.RequestCredentials (RequestCredentials)
-import Fetch.Core.RequestCredentials as Core.RequestCredentials
-import Fetch.Core.RequestMode (RequestMode)
-import Fetch.Core.RequestMode as Core.RequestMode
+import JS.Fetch.Duplex (Duplex)
+import JS.Fetch.Duplex as Core.Duplex
+import JS.Fetch.Headers (Headers)
+import JS.Fetch.Headers as Core.Headers
+import JS.Fetch.Integrity (Integrity(..))
+import JS.Fetch.Integrity as Core.Integrity
+import JS.Fetch.Referrer (Referrer)
+import JS.Fetch.Referrer as Core.Referrer
+import JS.Fetch.ReferrerPolicy (ReferrerPolicy)
+import JS.Fetch.ReferrerPolicy as Core.ReferrerPolicy
+import JS.Fetch.Request (_unsafeNew)
+import JS.Fetch.Request as Core.Request
+import JS.Fetch.RequestBody (RequestBody)
+import JS.Fetch.RequestCache (RequestCache)
+import JS.Fetch.RequestCache as Core.RequestCache
+import JS.Fetch.RequestCredentials (RequestCredentials)
+import JS.Fetch.RequestCredentials as Core.RequestCredentials
+import JS.Fetch.RequestMode (RequestMode)
+import JS.Fetch.RequestMode as Core.RequestMode
 import Fetch.Internal.RequestBody (class ToRequestBody, toRequestBody)
 import Prim.Row (class Lacks, class Union)
 import Prim.Row as R
