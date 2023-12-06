@@ -1,6 +1,5 @@
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.15.12-20231116/packages.dhall
-        sha256:cf42bf64e7ee34092175dfd2f2fd8b02a9ab799fdf140e6a5d5a50d580f012f5
+      https://github.com/purescript/package-sets/releases/download/psc-0.15.12-20231123/packages.dhall
+        sha256:95ecd1a23305f270971f4d4f2040541559116de6e21aba773d368787f7f1ed35
 
 in  upstream
-  with fetch-core.version = "v5.1.0"

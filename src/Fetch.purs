@@ -14,24 +14,28 @@ module Fetch
 
 import Prelude
 
+import Data.Either (Either(Left, Right))
 import Data.HTTP.Method (Method(..))
-import Effect.Aff (Aff)
+import Effect.Aff (Aff, effectCanceler, makeAff)
 import Effect.Class (liftEffect)
-import JS.Fetch as Core
-import JS.Fetch.Integrity (Integrity(..))
-import JS.Fetch.Referrer (Referrer(..))
-import JS.Fetch.Request as CoreRequest
-import JS.Fetch.RequestCache (RequestCache(..))
-import JS.Fetch.RequestCredentials (RequestCredentials(Omit, Include))
-import JS.Fetch.RequestMode (RequestMode(Cors, NoCors, Navigate))
-import Fetch.Internal.Headers (lookup, toHeaders, contains)
+import Fetch.Internal.Headers (contains, lookup, toHeaders)
 import Fetch.Internal.Request (class ToCoreRequestOptions, class ToCoreRequestOptionsConverter, class ToCoreRequestOptionsHelper, HighlevelRequestOptions, convertHelper, convertImpl, new)
-import Fetch.Internal.Request as Request
 import Fetch.Internal.RequestBody (class ToRequestBody, toRequestBody)
 import Fetch.Internal.Response (Response, ResponseR, arrayBuffer, blob, body, json, text)
-import Fetch.Internal.Response as Response
+import JS.Fetch.AbortController (AbortController)
+import JS.Fetch.Integrity (Integrity(..))
+import JS.Fetch.Referrer (Referrer(..))
+import JS.Fetch.RequestCache (RequestCache(..))
+import JS.Fetch.RequestCredentials (RequestCredentials(Include, Omit))
+import JS.Fetch.RequestMode (RequestMode(Cors, Navigate, NoCors))
 import Prim.Row (class Union)
+import JS.Fetch.AbortController (abort, new, signal) as AbortController
+import JS.Fetch as Core
+import JS.Fetch.Request as CoreRequest
+import Promise (Promise, resolve, thenOrCatch) as Promise
 import Promise.Aff as Promise.Aff
+import Fetch.Internal.Request as Request
+import Fetch.Internal.Response as Response
 
 -- | Implementation of `fetch`, see https://developer.mozilla.org/en-US/docs/Web/API/fetch
 -- |
@@ -64,5 +68,16 @@ fetch
   -> Aff Response
 fetch url r = do
   request <- liftEffect $ new url $ Request.convert r
-  cResponse <- Promise.Aff.toAffE $ Core.fetch request
+  abortController <- AbortController.new # liftEffect
+  let signal = AbortController.signal abortController
+  cResponse <- toAbortableAff abortController =<< liftEffect (Core.fetchWithOptions request { signal })
   pure $ Response.convert cResponse
+
+toAbortableAff :: forall a. AbortController -> Promise.Promise a -> Aff a
+toAbortableAff abortController p = makeAff \cb -> do
+   void $ Promise.thenOrCatch
+      (\a -> Promise.resolve <$> cb (Right a))
+      (\e -> Promise.resolve <$> cb (Left (Promise.Aff.coerce e)))
+      p
+   pure $ effectCanceler (AbortController.abort abortController)
+

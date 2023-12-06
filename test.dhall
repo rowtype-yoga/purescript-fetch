@@ -5,10 +5,18 @@ in      conf
         , dependencies =
               conf.dependencies
             # [ "aff"
+              , "datetime"
               , "effect"
               , "either"
+              , "exceptions"
               , "spec"
-              , "spec-discovery"
               , "strings"
+              , "node-buffer"
+              , "node-event-emitter"
+              , "node-http"
+              , "node-net"
+              , "node-streams"
+              , "partial"
+              , "refs"
               ]
         }
