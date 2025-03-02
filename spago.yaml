@@ -1,4 +1,10 @@
 package:
+  name: purescript-fetch
+  publish:
+    version: 4.1.1
+    location:
+      githubOwner: rowtype-yoga
+      githubRepo: purescript-fetch
   dependencies:
     - aff
     - arraybuffer-types
