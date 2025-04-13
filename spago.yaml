@@ -1,0 +1,51 @@
+package:
+  name: fetch
+  publish:
+    version: 4.1.1
+    license: MIT
+    location:
+      githubOwner: rowtype-yoga
+      githubRepo: purescript-fetch
+  dependencies:
+    - aff
+    - arraybuffer-types
+    - bifunctors
+    - effect
+    - either
+    - foreign
+    - http-methods
+    - js-fetch
+    - js-promise
+    - js-promise-aff
+    - maybe
+    - newtype
+    - ordered-collections
+    - prelude
+    - record
+    - strings
+    - typelevel-prelude
+    - web-file
+    - web-streams
+  test:
+    main: Test.Main
+    dependencies:
+      - node-http
+      - spec
+      - aff
+      - datetime
+      - effect
+      - either
+      - exceptions
+      - spec
+      - strings
+      - node-buffer
+      - node-event-emitter
+      - node-http
+      - node-net
+      - node-streams
+      - partial
+      - refs      
+workspace:
+  extraPackages: {}
+  packageSet:
+    registry: 63.3.0
