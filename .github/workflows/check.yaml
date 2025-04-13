@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up a PureScript toolchain
         uses: purescript-contrib/setup-purescript@main
@@ -18,9 +18,9 @@ jobs:
           spago: "unstable"
           purs-tidy: "latest"
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4.3.0
         with:
-          node-version: "20"
+          node-version: "node"
 
       - name: Cache PureScript dependencies
         uses: actions/cache@v2
