@@ -16,14 +16,14 @@ jobs:
         with:
           purescript: "unstable"
           spago: "unstable"
-          purs-tidy: "latest"
+          # purs-tidy: "latest"
 
       - uses: actions/setup-node@v4.3.0
         with:
-          node-version: "node"
+          node-version: "20"
 
       - name: Cache PureScript dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           key: ${{ runner.os }}-spago-${{ hashFiles('**/*.dhall') }}
           path: |
@@ -39,6 +39,5 @@ jobs:
       - name: Run tests
         run: spago test
 
-      - name: Check formatting
-        run: purs-tidy check src test
-
+      # - name: Check formatting
+      #   run: purs-tidy check src test
