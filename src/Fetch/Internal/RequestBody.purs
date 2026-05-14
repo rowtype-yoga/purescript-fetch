@@ -2,6 +2,7 @@ module Fetch.Internal.RequestBody where
 
 import Data.ArrayBuffer.Types (ArrayBuffer, ArrayView, Uint8Array)
 import JS.Fetch.RequestBody as CoreRequestBody
+import Web.File.Blob (Blob)
 import Web.Streams.ReadableStream (ReadableStream)
 
 class ToRequestBody body where
@@ -12,6 +13,9 @@ instance ToRequestBody ArrayBuffer where
 
 instance ToRequestBody (ArrayView a) where
   toRequestBody = CoreRequestBody.fromArrayView
+
+instance ToRequestBody Blob where
+  toRequestBody = CoreRequestBody.fromBlob
 
 instance ToRequestBody String where
   toRequestBody = CoreRequestBody.fromString
